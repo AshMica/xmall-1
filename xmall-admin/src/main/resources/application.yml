@@ -1,0 +1,33 @@
+# 配置内置Tomcat端口号
+server:
+  port: 9998
+# 配置Spring Boot项目名
+spring:
+  application:
+    name: xmall-admin
+# 配置MVC视图解析器
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+# 配置JDBC连接信息
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xmall?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+# 配置JPA相关信息
+  jpa:
+    show-sql: true
+    open-in-view: true
+# 配置Dubbo相关信息
+  dubbo:
+    application:
+      name: xmall-admin
+    protocol:
+      name: dubbo
+      port: 20880
+      serialization: java
+    registry:
+      address: zookeeper://localhost:2181
+    scan: com.sillybin.xmall
