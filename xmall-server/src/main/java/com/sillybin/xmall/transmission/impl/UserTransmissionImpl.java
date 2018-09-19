@@ -1,5 +1,7 @@
 package com.sillybin.xmall.transmission.impl;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -21,5 +23,10 @@ public class UserTransmissionImpl implements UserTransmission {
 
 	public User getUserByUserId(Long userId) throws Exception {
 		return userService.getUserByUserId(userId);
+	}
+
+	public Map<String, Object> getUserListByPage(Integer pageNum, Integer pageSize, String username) throws Exception {
+		Map<String, Object> resultMap = userService.getUserListByPage(pageNum, pageSize, username);
+		return resultMap;
 	}
 }

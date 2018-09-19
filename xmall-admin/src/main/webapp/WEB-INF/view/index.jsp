@@ -20,6 +20,12 @@
 			$(function() {
 				$.widget.bridge('uibutton', $.ui.button);
 			});
+			
+			function openFrame(url) {
+				// 组装请求路径，发出请求
+				var iframe="<iframe height='100%' width='100%' onscroll='true' src='<%=request.getContextPath()%>" + url + "' style='border: 0px;'></iframe>";
+				$("#myFrame").html(iframe);
+			}
 		</script>
 	</head>
 	<body class="hold-transition skin-blue sidebar-mini">
@@ -77,7 +83,7 @@
 	          					<ul class="treeview-menu">
 	          						<c:forEach var="second" items="${first.menuList }">
 	          							<li>
-		            						<a href="${second.url }">
+		            						<a href="javascript:openFrame('${second.url }')">
 		            							<i class="${second.icon }"></i>
 		            							${second.text }
 		            						</a>
@@ -89,7 +95,9 @@
       				</ul>
     			</section>
   			</aside>
-  			<div class="content-wrapper"></div>
+  			<div id="myFrame" class="content-wrapper">
+  				
+  			</div>
   			<footer class="main-footer">
     			<div class="pull-right hidden-xs">
       				<b>Version</b> 1.0.0
