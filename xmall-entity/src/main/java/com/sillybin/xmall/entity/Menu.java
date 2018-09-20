@@ -1,6 +1,7 @@
 package com.sillybin.xmall.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name="sys_menu")
 public class Menu implements Serializable {
@@ -24,6 +27,12 @@ public class Menu implements Serializable {
 	private String text;
 	private String url;
 	private String icon;
+	private Integer sortOrder;
+	private Status status;
+	private User createUser;
+	private Date createTime;
+	private User updateUser;
+	private Date updateTime;
 	private List<Menu> menuList;
 	private List<Role> roleList;
 	
@@ -63,7 +72,58 @@ public class Menu implements Serializable {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
+	}
 	
+	@ManyToOne(targetEntity=Status.class, fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="status_id")
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	@ManyToOne(targetEntity=User.class, fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="create_user")
+	public User getCreateUser() {
+		return createUser;
+	}
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	
+	@ManyToOne(targetEntity=User.class, fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="update_user")
+	public User getUpdateUser() {
+		return updateUser;
+	}
+	public void setUpdateUser(User updateUser) {
+		this.updateUser = updateUser;
+	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 	@OneToMany(targetEntity=Menu.class,
 			mappedBy="parent", fetch=FetchType.LAZY,
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE})

@@ -20,5 +20,6 @@ public class ConstantsUtil {
 	public static final String GENDER_MALE = props.getProperty("sys.gender.male");
 	public static final String GENDER_FEMALE = props.getProperty("sys.gender.female");
 
+	public static final Integer PAGE_NUM = Integer.parseInt(props.getProperty("sys.page.num"));
 	public static final Integer PAGE_SIZE = Integer.parseInt(props.getProperty("sys.page.size"));
 }

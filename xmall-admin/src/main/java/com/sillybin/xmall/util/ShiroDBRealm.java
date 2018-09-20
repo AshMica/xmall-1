@@ -30,7 +30,7 @@ public class ShiroDBRealm extends AuthorizingRealm {
 			userToken.setPassword(EncryptionUtil.encrypt(new String(userToken.getPassword())).toCharArray());
 			try {
 				User user = userTransmission.getUserByLoginName(loginName);
-				if (user != null && ConstantsUtil.STATUS_YES.equals(user.getStatus())) {
+				if (user != null && ConstantsUtil.STATUS_YES.equals(user.getStatus().getStatusCode())) {
 					SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(
 							user.getLoginName(), user.getPassword(), getName());
 					SecurityUtils.getSubject().getSession().setAttribute("user", user);
@@ -39,6 +39,7 @@ public class ShiroDBRealm extends AuthorizingRealm {
 					throw new AuthenticationException("该用户无法登陆，请联系管理员");
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new AuthenticationException("系统异常");
 			}
 		} else {

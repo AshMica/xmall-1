@@ -12,12 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name="sys_user")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long userId;
-	private String userNo;
 	private String username;
 	private String loginName;
 	private String password;
@@ -27,7 +28,7 @@ public class User implements Serializable {
 	private String cellphone;
 	private String email;
 	private Date birthday;
-	private String status;
+	private Status status;
 	private User createUser;
 	private Date createTime;
 	private User updateUser;
@@ -40,12 +41,6 @@ public class User implements Serializable {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-	public String getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(String userNo) {
-		this.userNo = userNo;
 	}
 	public String getUsername() {
 		return username;
@@ -66,7 +61,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 	
-	@ManyToOne(targetEntity=Role.class, fetch=FetchType.LAZY,
+	@ManyToOne(targetEntity=Role.class, fetch=FetchType.EAGER,
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="role_id")
 	public Role getRole() {
@@ -105,14 +100,18 @@ public class User implements Serializable {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public String getStatus() {
+	
+	@ManyToOne(targetEntity=Status.class, fetch=FetchType.EAGER,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="status_id")
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	
-	@ManyToOne(targetEntity=User.class, fetch=FetchType.LAZY,
+	@ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER,
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="create_user")
 	public User getCreateUser() {
@@ -121,6 +120,8 @@ public class User implements Serializable {
 	public void setCreateUser(User createUser) {
 		this.createUser = createUser;
 	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -128,7 +129,7 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 	
-	@ManyToOne(targetEntity=User.class, fetch=FetchType.LAZY,
+	@ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER,
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="update_user")
 	public User getUpdateUser() {
@@ -137,6 +138,8 @@ public class User implements Serializable {
 	public void setUpdateUser(User updateUser) {
 		this.updateUser = updateUser;
 	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdateTime() {
 		return updateTime;
 	}

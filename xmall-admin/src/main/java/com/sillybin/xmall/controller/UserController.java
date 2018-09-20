@@ -37,6 +37,9 @@ public class UserController extends BaseController {
 		} else {
 			username = username.trim();
 		}
+		if (pageNum == null || pageNum > 1) {
+			pageNum = ConstantsUtil.PAGE_NUM;
+		}
 		Map<String, Object> resultMap = userTransmission.getUserListByPage(pageNum, ConstantsUtil.PAGE_SIZE, username);
 		return new ModelAndView("user/user_list", resultMap);
 	}
